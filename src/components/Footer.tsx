@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Mail, Linkedin } from "lucide-react";
+import ButterflyIcon from "./ButterflyIcon";
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
-              <ButterflyLogo className="h-8 w-8 text-primary mr-2" />
+              <ButterflyIcon className="h-8 w-8 text-primary mr-2" />
               <h3 className="text-xl font-bold text-primary">
                 Fibro Awareness
               </h3>
@@ -119,25 +120,6 @@ const FooterLink = ({ href, children }: { href: string; children: React.ReactNod
       {children}
     </a>
   </li>
-);
-
-// Butterfly Logo SVG Component
-const ButterflyLogo = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 22C12 22 10 18 2 18C2 18 8 16 10 12C10 12 8 8 2 6C2 6 10 6 12 2C12 2 14 6 22 6C22 6 16 8 14 12C14 12 16 16 22 18C22 18 14 18 12 22Z"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
 );
 
 export default Footer;

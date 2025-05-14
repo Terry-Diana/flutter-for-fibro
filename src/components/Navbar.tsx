@@ -39,18 +39,21 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed w-full z-50 transition-all duration-300 py-4",
+        "fixed w-full z-50 transition-all duration-300 py-4 px-4 md:px-6",
         isScrolled
           ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-md"
-          : "bg-black bg-opacity-20 backdrop-blur-sm"
+          : "bg-black bg-opacity-40 backdrop-blur-sm"
       )}
     >
-      <div className="container flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <div className="text-primary text-2xl font-comfortaa font-bold flex items-center">
+          <div className="text-2xl font-comfortaa font-bold flex items-center">
             <ButterflyIcon 
               variant="detailed" 
-              className="h-8 w-8 mr-2 animate-flutter text-primary" 
+              className={cn(
+                "h-8 w-8 mr-2 animate-flutter",
+                isScrolled ? "text-primary" : "text-white"
+              )} 
             />
             <span className={cn(
               "transition-colors",
