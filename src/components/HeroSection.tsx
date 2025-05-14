@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import ButterflyIcon from "./ButterflyIcon";
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -15,8 +16,9 @@ const HeroSection = () => {
       {/* Decorative Butterflies */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(6)].map((_, i) => (
-          <Butterfly
+          <ButterflyIcon
             key={i}
+            variant={i % 2 === 0 ? "detailed" : "simple"}
             className={`absolute opacity-${Math.floor(
               Math.random() * 3
             ) + 7}0 animate-float butterfly-shadow`}
@@ -35,7 +37,10 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
           <div className="mb-8 flex justify-center">
-            <Butterfly className="h-24 w-24 md:h-32 md:w-32 text-white animate-flutter" />
+            <ButterflyIcon 
+              variant="detailed"
+              className="h-24 w-24 md:h-32 md:w-32 text-white animate-flutter" 
+            />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Breaking the Silence on Fibromyalgia
@@ -69,25 +74,5 @@ const HeroSection = () => {
     </div>
   );
 };
-
-// Butterfly SVG component
-const Butterfly = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <svg
-    className={className}
-    style={style}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 22C12 22 10 18 2 18C2 18 8 16 10 12C10 12 8 8 2 6C2 6 10 6 12 2C12 2 14 6 22 6C22 6 16 8 14 12C14 12 16 16 22 18C22 18 14 18 12 22Z"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export default HeroSection;

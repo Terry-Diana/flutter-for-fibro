@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ButterflyIcon from "./ButterflyIcon";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,46 +42,70 @@ const Navbar = () => {
         "fixed w-full z-50 transition-all duration-300 py-4",
         isScrolled
           ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-md"
-          : "bg-transparent"
+          : "bg-black bg-opacity-20 backdrop-blur-sm"
       )}
     >
       <div className="container flex justify-between items-center">
         <div className="flex items-center">
           <div className="text-primary text-2xl font-comfortaa font-bold flex items-center">
-            <ButterflyLogo className="h-8 w-8 mr-2 animate-flutter" />
-            <span>Fibro Awareness</span>
+            <ButterflyIcon 
+              variant="detailed" 
+              className="h-8 w-8 mr-2 animate-flutter text-primary" 
+            />
+            <span className={cn(
+              "transition-colors",
+              isScrolled ? "text-primary" : "text-white"
+            )}>Fibro Awareness</span>
           </div>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-primary">
+        <div className="hidden md:flex space-x-6">
           <button
             onClick={() => scrollToSection("about")}
-            className="font-medium hover:text-primary-light transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all"
+            className={cn(
+              "font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all",
+              isScrolled ? "text-primary" : "text-white hover:text-white/80"
+            )}
           >
             About
           </button>
           <button
             onClick={() => scrollToSection("stories")}
-            className="font-medium hover:text-primary-light transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all"
+            className={cn(
+              "font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all",
+              isScrolled ? "text-primary" : "text-white hover:text-white/80"
+            )}
           >
             Stories
           </button>
           <button
             onClick={() => scrollToSection("resources")}
-            className="font-medium hover:text-primary-light transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all"
+            className={cn(
+              "font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all",
+              isScrolled ? "text-primary" : "text-white hover:text-white/80"
+            )}
           >
             Resources
           </button>
           <button
             onClick={() => scrollToSection("blog")}
-            className="font-medium hover:text-primary-light transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all"
+            className={cn(
+              "font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-light after:transition-all",
+              isScrolled ? "text-primary" : "text-white hover:text-white/80"
+            )}
           >
             Blog
           </button>
         </div>
 
-        <Button variant="default" className="hidden md:flex">
+        <Button 
+          variant={isScrolled ? "default" : "secondary"} 
+          className={cn(
+            "hidden md:flex",
+            !isScrolled && "text-primary hover:text-primary-light bg-white hover:bg-white/90"
+          )}
+        >
           Get Involved
         </Button>
 
@@ -88,7 +113,10 @@ const Navbar = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className={cn(
+            "md:hidden",
+            isScrolled ? "text-primary" : "text-white"
+          )}
           onClick={toggleMenu}
         >
           <Menu className="h-6 w-6" />
@@ -133,24 +161,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
-// Butterfly Logo SVG Component
-const ButterflyLogo = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 22C12 22 10 18 2 18C2 18 8 16 10 12C10 12 8 8 2 6C2 6 10 6 12 2C12 2 14 6 22 6C22 6 16 8 14 12C14 12 16 16 22 18C22 18 14 18 12 22Z"
-      fill="#6A1B9A"
-      stroke="#6A1B9A"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export default Navbar;
