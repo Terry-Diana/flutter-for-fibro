@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import BackToTop from "./components/BackToTop";
 
 // Import our updated CSS
 import "./App.css";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <BackToTop />
     </TooltipProvider>
   </QueryClientProvider>
 );
