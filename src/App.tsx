@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Stories from "./pages/Stories";
+import DoctorFinder from "./pages/DoctorFinder";
+import Gallery from "./pages/Gallery";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import BackToTop from "./components/BackToTop";
 
