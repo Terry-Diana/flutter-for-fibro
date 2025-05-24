@@ -2,6 +2,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import ButterflyIcon from "./ButterflyIcon";
+import SparkleIcon from "./SparkleIcon";
+import FloatingWords from "./FloatingWords";
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -13,25 +15,63 @@ const HeroSection = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center gradient-bg">
-      {/* Decorative Butterflies */}
+      {/* Reduced Decorative Butterflies */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(3)].map((_, i) => (
           <ButterflyIcon
-            key={i}
+            key={`butterfly-${i}`}
             variant={i % 2 === 0 ? "detailed" : "simple"}
-            className={`absolute opacity-${Math.floor(
-              Math.random() * 3
-            ) + 7}0 animate-float butterfly-shadow`}
+            className={`absolute opacity-40 animate-float butterfly-shadow`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
               transform: `rotate(${Math.random() * 360}deg) scale(${
-                Math.random() * 0.5 + 0.5
+                Math.random() * 0.3 + 0.4
               })`,
             }}
           />
         ))}
+        
+        {/* Gentle Sparkles */}
+        {[...Array(8)].map((_, i) => (
+          <SparkleIcon
+            key={`sparkle-${i}`}
+            size={i % 3 === 0 ? "lg" : i % 2 === 0 ? "md" : "sm"}
+            className={`absolute text-white/30 animate-pulse-gentle`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${Math.random() * 2 + 2}s`,
+            }}
+          />
+        ))}
+
+        {/* Floating Affirmation Words */}
+        <FloatingWords
+          className="text-lg animate-float"
+          style={{
+            left: "15%",
+            top: "25%",
+            animationDelay: "1s",
+            animationDuration: "8s",
+          }}
+        >
+          Hope
+        </FloatingWords>
+        
+        <FloatingWords
+          className="text-base animate-float"
+          style={{
+            right: "20%",
+            top: "70%",
+            animationDelay: "3s",
+            animationDuration: "7s",
+          }}
+        >
+          Strength
+        </FloatingWords>
       </div>
 
       <div className="container mx-auto px-4 z-10">
