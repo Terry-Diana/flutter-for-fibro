@@ -10,7 +10,7 @@ type FloatingWordsProps = {
 const FloatingWords = ({ className, style, children }: FloatingWordsProps) => {
   return (
     <div
-      className={`absolute text-white/60 font-comfortaa font-medium select-none ${className}`}
+      className={`absolute text-white/50 font-medium select-none ${className}`}
       style={style}
     >
       {children}

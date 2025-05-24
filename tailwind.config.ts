@@ -73,6 +73,11 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
 				},
+				'float-up': {
+					'0%': { transform: 'translateY(0)', opacity: '0.7' },
+					'50%': { opacity: '1' },
+					'100%': { transform: 'translateY(-100px)', opacity: '0' }
+				},
 				'flutter': {
 					'0%': { transform: 'rotate(-5deg) translateY(0)' },
 					'25%': { transform: 'rotate(10deg) translateY(-5px)' },
@@ -93,13 +98,15 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
+				'float-up': 'float-up 8s linear infinite',
 				'flutter': 'flutter 8s ease-in-out infinite',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite'
 			},
 			fontFamily: {
 				'comfortaa': ['Comfortaa', 'sans-serif'],
-				'quicksand': ['Quicksand', 'sans-serif']
+				'quicksand': ['Quicksand', 'sans-serif'],
+				'dancing': ['Dancing Script', 'cursive']
 			}
 		}
 	},

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import ButterflyIcon from "./ButterflyIcon";
 import SparkleIcon from "./SparkleIcon";
 import FloatingWords from "./FloatingWords";
+import GlowingParticle from "./GlowingParticle";
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -15,42 +16,41 @@ const HeroSection = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center gradient-bg">
-      {/* Reduced Decorative Butterflies */}
+      {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(3)].map((_, i) => (
-          <ButterflyIcon
-            key={`butterfly-${i}`}
-            variant={i % 2 === 0 ? "detailed" : "simple"}
-            className={`absolute opacity-40 animate-float butterfly-shadow`}
+        {/* Soft Glowing Particles */}
+        {[...Array(12)].map((_, i) => (
+          <GlowingParticle
+            key={`particle-${i}`}
+            size={i % 3 === 0 ? "lg" : i % 2 === 0 ? "md" : "sm"}
+            className="absolute"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              transform: `rotate(${Math.random() * 360}deg) scale(${
-                Math.random() * 0.3 + 0.4
-              })`,
+              top: `${Math.random() * 100 + 20}%`, // Start lower so they float up
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${Math.random() * 4 + 6}s`,
             }}
           />
         ))}
         
         {/* Gentle Sparkles */}
-        {[...Array(8)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <SparkleIcon
             key={`sparkle-${i}`}
             size={i % 3 === 0 ? "lg" : i % 2 === 0 ? "md" : "sm"}
-            className={`absolute text-white/30 animate-pulse-gentle`}
+            className={`absolute text-white/25 animate-pulse-gentle`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 2 + 2}s`,
+              animationDuration: `${Math.random() * 2 + 3}s`,
             }}
           />
         ))}
 
-        {/* Floating Affirmation Words */}
+        {/* Floating Affirmation Words with script font */}
         <FloatingWords
-          className="text-lg animate-float"
+          className="text-lg animate-float font-dancing italic"
           style={{
             left: "15%",
             top: "25%",
@@ -62,7 +62,7 @@ const HeroSection = () => {
         </FloatingWords>
         
         <FloatingWords
-          className="text-base animate-float"
+          className="text-base animate-float font-dancing italic"
           style={{
             right: "20%",
             top: "70%",
