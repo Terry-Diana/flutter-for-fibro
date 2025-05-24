@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const testimonials = [
   {
@@ -43,6 +44,7 @@ const testimonials = [
 const StoriesSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const navigate = useNavigate();
 
   const goToSlide = (index: number) => {
     setIsAnimating(true);
@@ -188,9 +190,21 @@ const StoriesSection = () => {
         </div>
 
         <div className="mt-14 text-center">
-          <Button className="bg-primary hover:bg-primary-light">
-            Share Your Story
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              className="bg-primary hover:bg-primary-light"
+              onClick={() => navigate("/share-story")}
+            >
+              Share Your Story
+            </Button>
+            <Button 
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-white"
+              onClick={() => navigate("/stories")}
+            >
+              View All Stories
+            </Button>
+          </div>
           <p className="mt-4 text-gray-600 text-sm">
             Your experience matters. Help others by sharing your journey with fibromyalgia.
           </p>

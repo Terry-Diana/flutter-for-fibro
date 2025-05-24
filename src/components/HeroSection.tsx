@@ -1,17 +1,27 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ButterflyIcon from "./ButterflyIcon";
 import SparkleIcon from "./SparkleIcon";
 import FloatingWords from "./FloatingWords";
 import GlowingParticle from "./GlowingParticle";
+import RotatingWords from "./RotatingWords";
+import AuthModal from "./AuthModal";
 
 const HeroSection = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "signup">("signup");
+
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleAuthClick = (mode: "login" | "signup") => {
+    setAuthMode(mode);
+    setIsAuthModalOpen(true);
   };
 
   return (
@@ -26,7 +36,7 @@ const HeroSection = () => {
             className="absolute"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100 + 20}%`, // Start lower so they float up
+              top: `${Math.random() * 100 + 20}%`,
               animationDelay: `${Math.random() * 8}s`,
               animationDuration: `${Math.random() * 4 + 6}s`,
             }}
@@ -34,7 +44,7 @@ const HeroSection = () => {
         ))}
         
         {/* Gentle Sparkles */}
-        {[...Array(6)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <SparkleIcon
             key={`sparkle-${i}`}
             size={i % 3 === 0 ? "lg" : i % 2 === 0 ? "md" : "sm"}
@@ -58,7 +68,7 @@ const HeroSection = () => {
             animationDuration: "8s",
           }}
         >
-          Hope
+          Healing
         </FloatingWords>
         
         <FloatingWords
@@ -70,7 +80,7 @@ const HeroSection = () => {
             animationDuration: "7s",
           }}
         >
-          Strength
+          Resilience
         </FloatingWords>
       </div>
 
@@ -85,16 +95,33 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Breaking the Silence on Fibromyalgia
           </h1>
+          
+          {/* Rotating Affirmation Words */}
+          <div className="mb-6">
+            <RotatingWords />
+          </div>
+
           <p className="text-lg md:text-xl text-white/90 mb-8">
             Join our community to raise awareness, share experiences, and support those affected by fibromyalgia.
           </p>
-          <Button
-            onClick={scrollToAbout}
-            size="lg"
-            className="bg-white text-primary hover:bg-secondary hover:text-primary transition-colors"
-          >
-            Learn More
-          </Button>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              onClick={scrollToAbout}
+              size="lg"
+              variant="outline"
+              className="bg-white/10 text-white border-white/30 hover:bg-white hover:text-primary transition-colors"
+            >
+              Learn More
+            </Button>
+            <Button
+              onClick={() => handleAuthClick("signup")}
+              size="lg"
+              className="bg-white text-primary hover:bg-secondary hover:text-primary transition-colors"
+            >
+              Join Community
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -111,6 +138,13 @@ const HeroSection = () => {
           />
         </svg>
       </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        mode={authMode}
+        onModeChange={setAuthMode}
+      />
     </div>
   );
 };
