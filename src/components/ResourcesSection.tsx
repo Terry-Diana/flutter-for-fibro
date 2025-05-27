@@ -11,21 +11,21 @@ const ResourcesSection = () => {
       title: "Understanding Fibromyalgia",
       description: "Comprehensive guide to symptoms, diagnosis, and treatment options.",
       icon: BookOpen,
-      link: "#",
+      link: "/resources/understanding-fibromyalgia",
       type: "Guide"
     },
     {
       title: "Support Groups",
       description: "Connect with local and online support communities.",
       icon: Users,
-      link: "#",
+      link: "/resources/support-groups",
       type: "Community"
     },
     {
       title: "Pain Management",
       description: "Techniques and strategies for managing chronic pain.",
       icon: Heart,
-      link: "#",
+      link: "/resources/pain-management",
       type: "Health"
     }
   ];
@@ -57,10 +57,12 @@ const ResourcesSection = () => {
                 <span className="inline-block bg-secondary text-primary text-sm px-3 py-1 rounded-full mb-4">
                   {resource.type}
                 </span>
-                <Button variant="outline" className="w-full group">
-                  Learn More
-                  <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <Link to={resource.link}>
+                  <Button variant="outline" className="w-full group">
+                    Learn More
+                    <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           );

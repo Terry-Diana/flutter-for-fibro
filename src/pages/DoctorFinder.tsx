@@ -1,34 +1,28 @@
 
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MapComponent from "@/components/MapComponent";
-import { MapPin, Phone, Clock, Star } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DoctorCard from "@/components/DoctorCard";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Filter } from "lucide-react";
+import { mockDoctors } from "@/data/mockDoctors";
 
 const DoctorFinder = () => {
-  // Mock data for recommended doctors
-  const doctors = [
-    {
-      id: 1,
-      name: "Dr. Sarah Johnson",
-      specialty: "Rheumatology",
-      rating: 4.8,
-      address: "123 Medical Center Dr, City, State 12345",
-      phone: "(555) 123-4567",
-      hours: "Mon-Fri: 9AM-5PM",
-    },
-    {
-      id: 2,
-      name: "Dr. Michael Chen",
-      specialty: "Pain Management",
-      rating: 4.9,
-      address: "456 Health Plaza, City, State 12345",
-      phone: "(555) 987-6543",
-      hours: "Mon-Thu: 8AM-6PM, Fri: 8AM-4PM",
-    },
-  ];
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState("all");
+  const [doctors] = useState(mockDoctors);
+
+  const specialties = ["all", "Rheumatology", "Pain Management", "Neurology", "Internal Medicine"];
+
+  const filteredDoctors = doctors.filter(doctor => {
+    const matchesSearch = doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         doctor.location.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSpecialty = selectedSpecialty === "all" || doctor.specialty === selectedSpecialty;
+    return matchesSearch && matchesSpecialty;
+  });
 
   return (
     <div className="min-h-screen">
@@ -45,50 +39,69 @@ const DoctorFinder = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {/* Search and Filter Section */}
+          <div className="mb-8 space-y-4">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search by name, specialty, or location..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <select
+                value={selectedSpecialty}
+                onChange={(e) => setSelectedSpecialty(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                {specialties.map(specialty => (
+                  <option key={specialty} value={specialty}>
+                    {specialty === "all" ? "All Specialties" : specialty}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Map Component */}
-            <div className="order-2 lg:order-1">
-              <MapComponent />
+            <div className="lg:col-span-1 order-2 lg:order-1">
+              <div className="sticky top-24">
+                <MapComponent />
+              </div>
             </div>
 
             {/* Doctor List */}
-            <div className="order-1 lg:order-2 space-y-4">
-              <h2 className="text-2xl font-semibold text-primary mb-4">
-                Recommended Doctors
-              </h2>
-              {doctors.map((doctor) => (
-                <Card key={doctor.id} className="hover-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-xl font-semibold">{doctor.name}</h3>
-                        <p className="text-primary font-medium">{doctor.specialty}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="font-medium">{doctor.rating}</span>
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="h-4 w-4 text-gray-500 mt-1" />
-                      <span className="text-sm text-gray-600">{doctor.address}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">{doctor.phone}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">{doctor.hours}</span>
-                    </div>
-                    <Button className="w-full mt-4">
-                      Contact Doctor
+            <div className="lg:col-span-2 order-1 lg:order-2">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-2xl font-semibold text-primary">
+                  {filteredDoctors.length} Doctor{filteredDoctors.length !== 1 ? 's' : ''} Found
+                </h2>
+              </div>
+              
+              <div className="space-y-4">
+                {filteredDoctors.length > 0 ? (
+                  filteredDoctors.map((doctor) => (
+                    <DoctorCard key={doctor.id} doctor={doctor} />
+                  ))
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 text-lg">No doctors found matching your criteria.</p>
+                    <Button 
+                      onClick={() => {
+                        setSearchTerm("");
+                        setSelectedSpecialty("all");
+                      }}
+                      variant="outline"
+                      className="mt-4"
+                    >
+                      Clear Filters
                     </Button>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
