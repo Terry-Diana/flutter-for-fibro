@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,29 +19,38 @@ import BackToTop from "./components/BackToTop";
 import "./App.css";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/stories" element={<Stories />} />
-          <Route path="/submit-story" element={<SubmitStory />} />
-          <Route path="/doctors" element={<DoctorFinder />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/resources/:type" element={<ResourceDetails />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      <BackToTop />
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/stories" element={<Stories />} />
+            <Route path="/submit-story" element={<SubmitStory />} />
+            <Route path="/doctors" element={<DoctorFinder />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/resources/:type" element={<ResourceDetails />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <BackToTop />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
